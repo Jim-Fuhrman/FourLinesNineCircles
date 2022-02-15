@@ -61,34 +61,67 @@ const topLeftCircleCoords = getOffset(topLeftCircle);
 const bottomLeftCircleCoords = getOffset(bottomLeftCircle);
 const topRightCircleCoords = getOffset(topRightCircle);
 
+// the asterisked-out code below works, but it's not ideally written because it repeats itself too much. 
+
 function drawLine1() {
+	console.log("drawing line 1 using setInterval and clearInterval");
 	return drawLine(bottomRightCircleCoords, topLeftCircleCoords, "maroon", 3); 
 }
 
 function drawLine2() {
+	console.log("drawing line 2 using setInterval and clearInterval");
 	return drawLine(topLeftCircleCoords, bottomLeftCircleCoords, "maroon", 3); 
 }
 
 function drawLine3() {
+	console.log("drawing line 3 using setInterval and clearInterval");
 	return drawLine(bottomLeftCircleCoords, topRightCircleCoords, "maroon", 3); 
 }
 
 function drawLine4() {
+	console.log("drawing line 4 using setInterval and clearInterval");
 	return drawLine(topRightCircleCoords, topLeftCircleCoords, "maroon", 3); 
 }
 
 const btns = document.querySelectorAll(".btn");
 console.log(btns);
 
-// Either the for-of or the forEach will work. 
 
-// for(let btn of btns) {
-// 	btn.addEventListener('click', answer);
-// }
+// Either the for-of or the forEach will work. 
+/*
+	for(let btn of btns) {
+		btn.addEventListener('click', answer);
+	}
+*/
 
 btns.forEach(function (btn, _idx, _arr) {
 	btn.addEventListener('click', answer);
 });
+
+// function drawLines() {
+//  setTimeout(drawLine1, 1000);
+//  setTimeout(drawLine2, 2000);
+//  setTimeout(drawLine3, 3000);
+//  setTimeout(drawLine4, 4000);
+// }
+
+let interval;
+let nmbrOfIntervals = 0
+function drawLines() {
+	nmbrOfIntervals += 1;
+	if(nmbrOfIntervals === 5) console.log("iteration 5: ClearInterval is stopping setInterval");
+	switch (nmbrOfIntervals) {
+		case 1 : drawLine1();
+		break;
+		case 2 : drawLine2();
+		break;
+		case 3 : drawLine3();
+		break;
+		case 4 : drawLine4();
+		break;
+		case 5 : clearInterval(interval);
+	}
+}
 
 function answer() {
 	const ourYesResp = "You're right. After clicking \"ok\", you'll see how.";
@@ -96,14 +129,8 @@ function answer() {
 	const userClicked = this.textContent;
 	userClicked === "Yes" ? alert(ourYesResp) : alert(ourNoResp); 
 
-	drawLines();
-}
-
-function drawLines() {
-	setTimeout(drawLine1, 1000);
-	setTimeout(drawLine2, 2000);
-	setTimeout(drawLine3, 3000);
-	setTimeout(drawLine4, 4000);
+	// drawLines();
+	interval = setInterval(drawLines, 1000);
 }
 
 
@@ -111,6 +138,8 @@ function drawLines() {
 
 
 
+
+// The code below works, but it's beginner's code, not the ideal way of coding. 
 
 // const yes = btnYes.addEventListener('click', msgYes);
 // const no = btnNo.addEventListener('click', msgNo);
