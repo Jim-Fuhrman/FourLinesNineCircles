@@ -63,32 +63,13 @@ const topRightCircleCoords = getOffset(topRightCircle);
 
 // the asterisked-out code below works, but it's not ideally written because it repeats itself too much. 
 
-function drawLine1() {
-	console.log("drawing line 1 using setInterval and clearInterval");
-	return drawLine(bottomRightCircleCoords, topLeftCircleCoords, "maroon", 3); 
-}
-
-function drawLine2() {
-	console.log("drawing line 2 using setInterval and clearInterval");
-	return drawLine(topLeftCircleCoords, bottomLeftCircleCoords, "maroon", 3); 
-}
-
-function drawLine3() {
-	console.log("drawing line 3 using setInterval and clearInterval");
-	return drawLine(bottomLeftCircleCoords, topRightCircleCoords, "maroon", 3); 
-}
-
-function drawLine4() {
-	console.log("drawing line 4 using setInterval and clearInterval");
-	return drawLine(topRightCircleCoords, topLeftCircleCoords, "maroon", 3); 
-}
-
 const btns = document.querySelectorAll(".btn");
-console.log(btns);
+// console.log(btns);
 
-
-// Either the for-of or the forEach will work. 
 /*
+
+ Either the for-of or the forEach will work. 
+
 	for(let btn of btns) {
 		btn.addEventListener('click', answer);
 	}
@@ -98,11 +79,15 @@ btns.forEach(function (btn, _idx, _arr) {
 	btn.addEventListener('click', answer);
 });
 
-// function drawLines() {
-//  setTimeout(drawLine1, 1000);
-//  setTimeout(drawLine2, 2000);
-//  setTimeout(drawLine3, 3000);
-//  setTimeout(drawLine4, 4000);
+// function drawLinesUsingSetTimeout() {
+//  setTimeout(() => {
+// 	 drawLine(bottomRightCircleCoords, topLeftCircleCoords, "maroon", 3)}, 1000);
+//  setTimeout(() => {
+// 	drawLine(topLeftCircleCoords, bottomLeftCircleCoords, "maroon", 3)}, 2000);
+//  setTimeout(() => {
+// 	 drawLine(bottomLeftCircleCoords, topRightCircleCoords, "maroon", 3)}, 3000);
+//  setTimeout(() => {
+// 	 drawLine(topRightCircleCoords, topLeftCircleCoords, "maroon", 3)}, 4000);
 // }
 
 let interval;
@@ -111,13 +96,13 @@ function drawLines() {
 	nmbrOfIntervals += 1;
 	if(nmbrOfIntervals === 5) console.log("iteration 5: ClearInterval is stopping setInterval");
 	switch (nmbrOfIntervals) {
-		case 1 : drawLine1();
+		case 1 : drawLine(bottomRightCircleCoords, topLeftCircleCoords, "maroon", 3);
 		break;
-		case 2 : drawLine2();
+		case 2 : drawLine(topLeftCircleCoords, bottomLeftCircleCoords, "maroon", 3);
 		break;
-		case 3 : drawLine3();
+		case 3 : drawLine(bottomLeftCircleCoords, topRightCircleCoords, "maroon", 3);
 		break;
-		case 4 : drawLine4();
+		case 4 : drawLine(topRightCircleCoords, topLeftCircleCoords, "maroon", 3);
 		break;
 		case 5 : clearInterval(interval);
 	}
@@ -129,7 +114,10 @@ function answer() {
 	const userClicked = this.textContent;
 	userClicked === "Yes" ? alert(ourYesResp) : alert(ourNoResp); 
 
-	// drawLines();
+	// console.log(`Running drawLinesUsingSetTimeout`);
+	// drawLinesUsingSetTimeout();
+
+	console.log(`Running drawLines Using setInterval / clearInterval`);
 	interval = setInterval(drawLines, 1000);
 }
 
